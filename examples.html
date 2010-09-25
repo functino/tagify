@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tagify</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
+<!-- include tagify stylesheets and javascript fiels -->
+<link rel="stylesheet" type="text/css" href="tagify.css" />
+<script type="text/javascript" src="tagify.js"></script>
+</head>
+<body>
+<div id="wrapper">
+<h1>Tagify</h1>
+<div class="chapter" id="intro"><h2>Intro</h2>
+<p>Tagify is a simple <a href="http://prototypejs.org">Prototype</a> based script, which allows you to input tags and give the user a visual feedback. If you have questions or feedback feel free to comment on this blog post: <a href="http://functino.com/2009/03/tagify-a-tagging-interface">Tagify - a tagging interface</a></p>
+<p>Just try it out:</p>
+<div class="chapter" id="demos"><h2>Demos</h2>
+<div class="demos">
+<div class="demo">
+<h3>Tagify with default settings</h3>
+<p>Type in your tags separated by comma. Remove them with a click on the X-Button or use backspace.</p>
+<input id="tagify-1" name="tags" type="text" /> <br />
+<div class="showsource">show sourcecode</div>
+<script type="text/javascript">
+	new Tagify('tagify-1');
+</script>
+</div>
+
+<div class="demo">
+<h3>Filled with some initial tags and with automatic detection of duplicates + Effects</h3>
+<p>Type in your tags separated by comma:</p>
+<input id="tagify-2" name="tags" type="text" /> <br />
+<div class="showsource">show sourcecode</div>
+<script type="text/javascript">
+	new Tagify('tagify-2', {add:["add", "your", "own", "tags", "now"], duplicates:false, addEffect:Effect.Appear, addEffectOptions: {duration: 0.5, from:0.1}, removeEffect: Effect.Fade});
+</script>
+</div>
+
+
+<div class="demo">
+<h3>Tagify with other separators and a default value</h3>
+<p>Type in your tags separated by comma, semicolon or space. The Tags that are already visible are automatically parsed out of the input's value attribute.</p>
+<input id="tagify-3" name="tags" type="text" value="dog,cat,mouse" /> <br />
+<div class="showsource">show sourcecode</div>
+<script type="text/javascript">
+	new Tagify('tagify-3', {splitBy: ", ;", duplicates:false});
+</script>
+</div>
+
+</div>
+</div>
+
+
+<div class="chapter" id="installation"><h2>Installation</h2>
+<p>Tagfiy requires the JavaScript framework Prototype. If you want to use effects you also need script.aculo.us. You can <a href="http://prototypejs.org">grab it here</a> and <a href="http://prototypejs.org">here</a> or include it directly via the <a href='http://code.google.com/apis/ajaxlibs/documentation/index.html#prototype' target='_blank'>Google AJAX Libraries API</a>. Tagify uses CSS for styling the input element for your tags so you need to include the css-file which is included in the download. Upload the image for the remove button. All you have to do now is to include the JavaScript and CSS files. If you have other paths or want other images: check the image paths in the tagify.css file.</p>
+<p>It's as simple as this:</p>
+	<div class="code"> 
+      <pre class="html">
+&lt;script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='/tagify/tagify.js'&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="/tagify/tagify.css" /&gt;</pre>
+	</div>
+<p>
+If you don't want to load an exta Stylesheet you could simply copy the contents of /tagify/tagify.css to your default css-file.	
+</p>
+</div>
+
+
+<div class="chapter" id="howtouse"><h2>How to use Tagify</h2>
+<p>Usage is really simple. If you use the defaults provided by Tagify all you have to do is this simple call:</p>
+	<div class="code"> 
+      <pre class="js">new Tagify('id_of_your_input_element');</pre>
+	</div>
+</div>
+
+
+<div class="chapter" id="options"><h2>Tagify options and API</h2>
+<p>Tagify has some options, they are all listed below with their defaul values:</p>
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {
+	splitBy: ",", // String of seperators for tags
+	duplicates: true, // allow or disallow duplicates
+	strip: true, // strip/trim text
+	parameterName: false, // name-attribute of the generated hidden input-elements
+	className: "tagify", // css-class name
+	add:[], // default tags
+	removeEffect: false, //effects and effect-options
+	addEffect:false,
+	removeEffectOptions: {},
+	addEffectOptions: {},
+	duplicateEffect: Effect.Highlight
+}
+});</pre>
+	</div>
+<h3>First Parameter: Element</h3>
+The first parameter of Tagify is either an input element or the id of an input element. The given element will be converted to a Tagify-Box.
+<h3>Second Parameter: Options</h3>	
+<div class="subchapter">	
+<h4>splitBy</h4>
+With this option you can specify the seperators for your text. By default tags are seperated by ",". You can however add as many seperators as you like:
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {splitBy: [',', ' ', ';']});</pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>duplicates</h4>
+If you set duplicates to true Tagify does not add one tag with the same text twice.
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {duplicates: false});</pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>strip</h4>
+By default Tagify removes whitespaces before and after a tag. If you don't want to remove this blanks set strip to false.
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {strip: false});</pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>parameterName</h4>
+<p>With this option you can customize with wich parameter the data should be send to your server. If you leave out this paramter Tagify will automatically detect the name of your original input and append "_tagify" to it. The data then gets send as an array with the specified name.</p>
+	<div class="code"> 
+      <pre class="js">// change the name to "tags"
+new Tagify('id', {parameterName: "tags"});
+
+// default behaviour is this:
+//HTML &lt; type="text" name="words" /&gt;
+new Tagify('id');
+// Tags will be available on the server side in an array called words_tagified
+
+</pre>
+	</div>
+<h5>Handling on the server side</h5>
+Here is a commented PHP example:	
+	<div class="code"> 
+      <pre class="php">//if your form is a GET instead of a POST just replace POST with GET.
+// if JavaScript is disabled Tagify does not work and there will be no words_tagified:
+if(!isset($_POST['words_tagified'])
+{
+	//this is just a fallback if JS is disabled
+	//retrieve the tags from the normal string, and explode it:
+	$tags = explode(",", $_POST['word']);
+}
+else
+{
+	$tags = $_POST['words_tagified'];
+}
+
+foreach($tags as $tag)
+{
+	//save to database or echo them....
+	echo $tag;
+}
+	  </pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>className</h4>
+Defaults to "tagify". You can change it to whatever you want. className is the name/prefix that is used for Tagify's css-classes.
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {className: "tagified"});</pre>
+	</div>	
+If you change this value make sure to also change the CSS file.
+</div>
+
+<div class="subchapter">	
+<h4>add</h4>
+Defaults to an empty array. All elements of the add-array are automatically addes as initial tags:
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {add: ["dog", "cat", "mouse"]});</pre>
+	</div>	
+Instead of using the add-option you can also set the value attribute of your tagified input:
+	<div class="code"> 
+      <pre class="html">&lt;input type="text" name="words" value="dog,cat,mouse" /&gt;</pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>addEffect</h4>
+If you include Script.aculo.us you can trigger effects on certain events. With addEffect you can fire a effect on a newly added tag. It works like this:
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {addEffect: Effect.Appear});</pre>
+	</div>	
+To customize this effect you can pass in a hash like this:
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {addEffect: Effect.Appear, addEffectOptions: {duration:0.5, from:0.1}});</pre>
+	</div>	
+For futher documentation check the Script.aculo.us documentation.
+</div>
+
+<div class="subchapter">	
+<h4>removeEffect</h4>
+This effect is used on the element/tag that is removed
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {removeEffect: Effect.Fade});</pre>
+	</div>	
+To customize this effect you can pass in a hash. 
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {removeEffect: Effect.Fade, removeEffectOptions: {duration:0.5}});</pre>
+	</div>	
+</div>
+
+<div class="subchapter">	
+<h4>duplicateEffect</h4>
+If you disable duplicates in Tagify and a user wants to add a tag that is already added you can use this effect to highlight the duplicate:
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {duplicateEffect: Effect.Highlight});</pre>
+	</div>	
+To customize this effect you can pass in a hash.
+	<div class="code"> 
+      <pre class="js">new Tagify('id', {duplicateEffect: Effect.Highlight, duplicateEffectOptions: {duration:0.5}});</pre>
+	</div>	
+</div>
+
+
+<h3>API</h3>
+Tagify has one public method:
+<div class="subchapter">	
+<h4>add()</h4>	
+At anytime it is possible to add tags manually like this:
+	<div class="code"> 
+      <pre class="js">var tf = new Tagify($('element'));
+tf.add('mytag');</pre>
+	</div>	
+</div>
+
+</div>
+
+<div class="chapter" id="license">
+<h2>Cusomize design</h2>
+To customize the design just look into the tagify.css and change it to whatever you like.
+</div>
+
+<div class="chapter" id="license">
+<h2>License</h2>
+Just grab it and use it...free.
+</div>
+
+<div class="chapter" id="download">
+<h2>Download</h2>
+<a href="http://functino.com/?dl_id=4" style="font-weight:bold; font-size:17px; text-decoration:underline;">Download tagify.zip</a>
+</div>
+
+<div class="chapter" id="contact">
+<h2>Contact</h2>
+If you need help or have features requests feel free to comment to this blog post: <a href="http://functino.com/2009/03/tagify-a-tagging-interface">Tagify - a tagging interface</a>.
+</div>
+
+
+</div>
+<!-- The following Code is not related to tagify and just styles this page -->
+<style type="text/css">
+  /* This is NOT related to the styling of Tagify. Look into the "tagify/tagify.css" file instead! */
+  * { margin: 0; padding: 0; }
+  html { min-height: 100%; margin-bottom: 1px; background: #e7e7e7;}
+  body { background: #e7e7e7; font-family: Arial, Helvetica, sans-serif; font-size: 0.7em; color: #2b2b2b; }
+  #wrapper { padding:30px; }
+  .demo_container { background-color:white; margin:20px; padding:5px; font-size:13px; }
+  .demo_container fieldset { width:45%; float:left; margin:7px; padding:5px; }
+  h1, h2, h3, h4, h5, h6 { font-family: Georgia, serif; font-style: italic; font-weight: normal;}
+  h1 { display: block; color: #1E90FF; }
+  h2 { margin-bottom: 5px; font-size: 1.6em;}
+  h3 { margin-bottom: 3px; font-size: 1.5em; margin-left:7px;}
+  h4 { margin-bottom: 2px; font-size: 1.3em;}
+  div.code { margin-left: 20px; margin-right:30px; margin-bottom: 10px; border: 2px solid #dadada; background: #fff; padding: 6px; padding-left: 10px; padding-right: 10px; font-size: 11px; color: #444444; }
+  .chapter { float: left; width: 100%; clear: both; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #dadada; }
+  .subchapter { margin-left:20px; }
+  .lined { border-bottom: 1px dotted #999999; }
+  .demos { clear: both; width: 100%; display: block; margin-top: 10px;}
+  label {	display:block; }
+  a { color: #0E80FF; text-decoration: none; }
+  a:hover { background: #0E80FF; color: #fff; }
+  p { margin-bottom: 0.7em; }
+  .demos { background-color:#fff; padding:10px; }
+  .showsource { cursor:pointer; }
+</style>
+<script type="text/javascript">
+	document.observe('dom:loaded', function(){
+		$$('.showsource').each(function(it){
+			it.observe('click', function(ev){
+				ev.element().update(ev.element().next().innerHTML).addClassName('code').removeClassName('showsource');
+			});
+		});
+	});
+</script>
+</body>
+</html>

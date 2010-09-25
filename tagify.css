@@ -1,0 +1,48 @@
+/* Tagify wraps the tagified input-elemtn with a div, style it as you want to */
+div.tagify
+{
+	border:1px black solid;
+	width:300px;
+	font-size:12px;
+	font-family:Arial, sans-serif;
+}
+
+/* style the tagified input. You will want to hide the borders and make the background transparent */
+div.tagify input
+{
+	border:none;
+	padding:4px;
+	width:100px;
+	background: transparent;
+	font-family:Arial, sans-serif;
+}
+
+/* Each Tag is added as a span-element */
+span.tagify {
+	padding: 2px;
+	padding-right:19px;
+	padding-left:20px;
+	position:relative;
+	border:1px #ccc solid;
+	margin:1px;
+	display:block;
+	float:left;
+	background:#eeeeee url(tag.png) no-repeat 5px center;
+	-moz-border-radius:4px;
+}
+
+/* each tag has a "remove-span" */
+span.tagify span.tagify_remove
+{
+	display:block;
+	cursor:pointer;
+	background:transparent url(delete.png) no-repeat left center;
+	text-indent:-1000em;
+	font-size:0px;
+	height:100%;
+	width:13px;
+	padding-right:3px;
+	position:absolute;	
+	top:0px;
+	right:0px;
+}
